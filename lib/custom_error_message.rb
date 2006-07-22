@@ -16,7 +16,7 @@ module ActiveRecord
           if attr == "base"
             full_messages << msg
           elsif msg =~ /^\^/
-            full_messages << msg.sub(/^\^/, '') # Isn't there a simpler way to strip the first character?
+            full_messages << msg[1..-1]
           else
             full_messages << @base.class.human_attribute_name(attr) + " " + msg
           end
