@@ -9,16 +9,16 @@ module ActiveRecord
     def full_messages
       full_messages = []
 
-      @errors.each_key do |attr|
-        @errors[attr].each do |msg|
-          next if msg.nil?
+      @errors.each do |attr, error|
+        @errors[attr].each do |error|
+          next if error.message.nil?
 
           if attr == "base"
-            full_messages << msg
-          elsif msg =~ /^\^/
-            full_messages << msg[1..-1]
+            full_messages << error.message
+          elsif error.message =~ /^\^/
+            full_messages << error.message[1..-1]
           else
-            full_messages << @base.class.human_attribute_name(attr) + " " + msg
+            full_messages << @base.class.human_attribute_name(attr) + " " + error.message
           end
         end
       end
@@ -27,3 +27,4 @@ module ActiveRecord
     end
   end
 end
+
